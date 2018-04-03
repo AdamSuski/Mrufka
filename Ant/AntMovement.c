@@ -3,7 +3,7 @@
 //
 #include <stdlib.h>
 #include <stdio.h>
-#include <zconf.h>
+//#include <zconf.h>
 #include "AntMovement.h"
 int makeHeading(int head , char handling)
 {
