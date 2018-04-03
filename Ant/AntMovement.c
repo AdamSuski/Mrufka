@@ -3,7 +3,6 @@
 //
 #include <stdlib.h>
 #include <stdio.h>
-//#include <zconf.h>
 #include "AntMovement.h"
 int makeHeading(int head , char handling)
 {
@@ -91,14 +90,7 @@ void antAlgorithm ( int* x, int* y, int antCounter, int* heading, int** board, i
                 temporaryFieldInfo =board[x[i]][y[i]];
                 moveAnt(x, y, heading, i, board[x[i]][y[i]], board, handlingLenght, handling[temporaryFieldInfo]);
                 activityTab[i] = acivityCheck( x[i], y[i], boardSize);
-                for(int a = 0; a < boardSize; a++) {
-                    for(int b = 0; b < boardSize; b++) {
-                        printf(" %d ", board[a][b]);
-                    }
-                    printf("\n");
                 }
-                //printf("\n\t---\t---\t---\t---\t---\t---\n\n");
-                //sleep(10);
             }
         }
         active = checkActive( activityTab, antCounter);
