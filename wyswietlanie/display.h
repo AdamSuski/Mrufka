@@ -3,7 +3,7 @@
 #include <SDL2/SDL.h>
 
 //creating single image in SDL2
-void createImage( int**, int, int, int );
+void createImage( int**, int, int );
 //destroying SDL window and renderer
 void destorySDL( SDL_Window*, SDL_Renderer* );
 

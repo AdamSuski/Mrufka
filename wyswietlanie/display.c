@@ -8,7 +8,7 @@ void destorySDL( SDL_Window* window, SDL_Renderer* renderer ){
     SDL_Quit();
 }
 
-void createImage(int** plansz, int size, int size, int milisec){
+void createImage(int** plansz, int size, int milisec){
     //init all SDL
     SDL_Init(SDL_INIT_EVERYTHING);
     //creating  window and render
@@ -25,24 +25,12 @@ void createImage(int** plansz, int size, int size, int milisec){
     for(;;){
         for(i=0; i<size; i++)
             for(j=0; j<size; j++){
-                if(plansz[i][j]==0){
+                if(plansz[i][j]%2){
                     SDL_SetRenderDrawColor(render, 255, 255, 255, 255);
                     SDL_RenderDrawPoint(render, i, j);
                 }
-                if(plansz[i][j]==1){
-                    SDL_SetRenderDrawColor(render, 255, 0, 0, 255);
-                    SDL_RenderDrawPoint(render, i, j);
-                }
-                if(plansz[i][j]==2){
-                    SDL_SetRenderDrawColor(render, 0, 255, 0, 255);
-                    SDL_RenderDrawPoint(render, i, j);
-                }
-                if(plansz[i][j]==3){
-                    SDL_SetRenderDrawColor(render, 0, 0, 255, 255);
-                    SDL_RenderDrawPoint(render, i, j);
-                }
-                if(plansz[i][j]==4){
-                    SDL_SetRenderDrawColor(render, 243, 108, 18, 255);
+                else{
+                    SDL_SetRenderDrawColor(render, 0, 0, 0, 255);
                     SDL_RenderDrawPoint(render, i, j);
                 }
             }
