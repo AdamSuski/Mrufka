@@ -11,7 +11,7 @@
 #define W 7
 
 typedef struct ant{
-    int x, y, antActivity, handling, direction;
+    int x, y, handling, handlingOriginal, handlingDerivate, direction;
 }*ants_t;
 
 ants_t makeAnts( int );

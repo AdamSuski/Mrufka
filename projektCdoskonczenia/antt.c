@@ -12,7 +12,7 @@ ants_t makeAnts( int antsAmount ){
 }
 
 int checkActivity( ants_t insectsi, int i, int boardSize ){
-    if( insectsi[i].x<0 || insectsi[i].x>boardSize || insectsi[i].y<0 || insectsi[i].y>boardSize )
+    if( insectsi[i].x < 0 || insectsi[i].x > boardSize-1 || insectsi[i].y < 0 || insectsi[i].y > boardSize-1 )
         return NONACTIVEA;
     else
         return ACTIVEA;
@@ -79,12 +79,12 @@ void antsAlgorithm(int** board, int boardSize, ants_t insects, int antAmount, in
 		while( activity ){
             if( board[insects[i].x][insects[i].y] == 0 ){
                 board[insects[i].x][insects[i].y] = i+1;
-                insects[i].handling = righth;
+                insects[i].handling = insects[i].handlingOriginal;
                 drawColor( insects[i].x, insects[i].y, i+1 );
             }
             else{
                 board[insects[i].x][insects[i].y] = 0;
-                insects[i].handling = lefth;
+                insects[i].handling = insects[i].handlingDerivate;
                 drawBlack( insects[i].x, insects[i].y );
             }
             changePosition( insects, i );

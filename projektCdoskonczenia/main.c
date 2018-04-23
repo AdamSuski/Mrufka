@@ -37,8 +37,14 @@ int main( int argc, char** argv ){
     ants_t insects = makeAnts( antAmount );
     int i;
     for( i = 0; i < antAmount; i++ ){
-        fscanf( fileInit, "%d %d %d %d\n", &insects[i].x, &insects[i].y, &insects[i].handling, &insects[i].direction );
-        insects[i].antActivity=ACTIVEA;
+        fscanf( fileInit, "%d %d %d %d\n", &insects[i].x, &insects[i].y, &insects[i].handlingOriginal, &insects[i].direction );
+        insects[i].handling=insects[i].handlingOriginal;
+        if( insects[i].handlingOriginal == righth ){
+            insects[i].handlingDerivate = lefth;
+        }
+        else{
+            insects[i].handlingDerivate = righth;
+        }
     }
     fclose(fileInit);
     antsAlgorithm( board, boardSize, insects, antAmount, milisecs );
