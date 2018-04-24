@@ -3,8 +3,8 @@
 
 #define ACTIVEA 1
 #define NONACTIVEA 0
-#define righth 2 //prawy kierunek
-#define lefth 3 //lewy kierunek
+#define righth 2 //prawe sterowanie
+#define lefth 3 //lewe sterowanie
 #define N 4
 #define E 5
 #define S 6

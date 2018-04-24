@@ -1,6 +1,6 @@
-#include "board.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "board.h"
 
 //x - liczba wierszy i kolumn
 int** boardGenerate(int x){

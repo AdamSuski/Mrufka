@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include "board.h"
 #include "antt.h"
-#include "displaySDL.h"
 
 int main( int argc, char** argv ){
     if( argc != 2 ){
