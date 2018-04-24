@@ -42,19 +42,19 @@ void drawColor( int xm, int ym, int i ){
 
 int initEverything(int sizeBoard){
 	if ( SDL_Init( SDL_INIT_EVERYTHING ) == -1 ){
-		printf( "Failed to initialize SDL!\n" );
+		printf( "Blad inicjalizacji SDL!\n" );
 		return 0;
 	}
 	window = SDL_CreateWindow( "Mrowka Grupa1",
                            SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                            sizeBoard*ANTSIZE, sizeBoard*ANTSIZE, 0 );
 	if ( window == NULL ){
-		printf( "Failed to initialize window!\n" );
+		printf( "Blad inicjalizacji okna!\n" );
 		return 0;
 	}
 	renderer = SDL_CreateRenderer( window, -1, 0 );
 	if ( renderer == NULL ){
-		printf( "Failed to initialize renderer!\n" );
+		printf( "Blad inicjalizacji render'a!\n" );
 		return 0;
 	}
 	SDL_SetRenderDrawColor( renderer, 0, 0, 0, 0 );
