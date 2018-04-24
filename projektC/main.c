@@ -36,7 +36,10 @@ int main( int argc, char** argv ){
     ants_t insects = makeAnts( antAmount );
     int i;
     for( i = 0; i < antAmount; i++ ){
-        fscanf( fileInit, "%d %d %d %d\n", &insects[i].x, &insects[i].y, &insects[i].handlingOriginal, &insects[i].direction );
+        if( fscanf( fileInit, "%d %d %d %d\n", &insects[i].x, &insects[i].y, &insects[i].handlingOriginal, &insects[i].direction ) != 4 ){
+            printf( "Niepoprawna ilosc wprowadzonych danych!\n" );
+            return EXIT_FAILURE;
+        }
         insects[i].handling=insects[i].handlingOriginal;
         if( insects[i].handlingOriginal == righth ){
             insects[i].handlingDerivate = lefth;
@@ -45,7 +48,7 @@ int main( int argc, char** argv ){
             insects[i].handlingDerivate = righth;
         }
     }
-    if( antAmount != i ){
+    if( fgetc( fileInit ) != EOF ){
         printf( "Niepoprawna ilosc wprowadzonych danych!\n" );
         return EXIT_FAILURE;
     }
