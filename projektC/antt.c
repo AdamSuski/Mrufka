@@ -1,7 +1,7 @@
-#include "antt.h"
-#include "displaySDL.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "antt.h"
+#include "displaySDL.h"
 #include "board.h"
 
 ants_t makeAnts( int antsAmount ){
@@ -70,38 +70,33 @@ void antsAlgorithm(int** board, int boardSize, ants_t insects, int antAmount, in
     int i = 0;
     int loop = 1;
     SDL_Event event;
-    while(loop && activity){
-
-		while ( SDL_PollEvent( &event ) ){
-			if ( event.type == SDL_QUIT )
-				loop = 0;
-		}
-		while( activity ){
-            if( board[insects[i].x][insects[i].y] == 0 ){
-                board[insects[i].x][insects[i].y] = i+1;
-                insects[i].handling = insects[i].handlingOriginal;
-                drawColor( insects[i].x, insects[i].y, i+1 );
-            }
-            else{
-                board[insects[i].x][insects[i].y] = 0;
-                insects[i].handling = insects[i].handlingDerivate;
-                drawBlack( insects[i].x, insects[i].y );
-            }
-            changePosition( insects, i );
-
-            activeAntCounter += checkActivity( insects, i, boardSize );
-            if( i == antAmount-1 ){
-                antShow( milisec );
-                if( activeAntCounter != activity )
-                    activity = 0;
-                else{
-                    i = 0;
-                    activeAntCounter = 0;
-                }
-            }
-            else
-                i++;
+    while( loop && activity ){
+        if( board[insects[i].x][insects[i].y] == 0 ){
+            board[insects[i].x][insects[i].y] = i+1;
+            insects[i].handling = insects[i].handlingOriginal;
+            drawColor( insects[i].x, insects[i].y, i+1 );
         }
-    }
+        else{
+            board[insects[i].x][insects[i].y] = 0;
+            insects[i].handling = insects[i].handlingDerivate;
+            drawBlack( insects[i].x, insects[i].y );
+        }
+        changePosition( insects, i );
+        activeAntCounter += checkActivity( insects, i, boardSize );
+        if( i == antAmount-1 ){
+            antShow( milisec );
+            if( activeAntCounter != activity )
+                activity = 0;
+            else{
+                i = 0;
+                activeAntCounter = 0;
+            }
+        }
+        else
+            i++;
+        while ( SDL_PollEvent( &event ) )
+            if ( event.type == SDL_QUIT )
+                loop = 0;
+        }
     destroymySDL();
 }

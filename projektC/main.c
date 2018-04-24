@@ -18,18 +18,18 @@ int main( int argc, char** argv ){
     int** board;
     fscanf( fileInit, "%d %d %d\n", &antAmount, &boardSize, &milisecs );
     if( antAmount < 1 || antAmount > 5 ){
-        printf( "Blad odczytu liczby mrowek\n" );
+        printf( "Blad odczytu liczby mrowek(zakres od 1 do 5 mrowek)!\n" );
         return EXIT_FAILURE;
     }
     if( boardSize < 0 || boardSize > 180){
-        printf( "Blad odczytu rozmiaru planszy\n" );
+        printf( "Blad odczytu rozmiaru planszy!\n" );
         return EXIT_FAILURE;
     }
     if( milisecs < 1 || milisecs > 4000){
-        printf( "Blad odczytu przerywnika(zakres od 1 do 4000 milisekund)\n" );
+        printf( "Blad odczytu przerywnika(zakres od 1 do 4000 milisekund)!\n" );
         return EXIT_FAILURE;
     }
-    board = boardGenerate( boardSize);
+    board = boardGenerate( boardSize );
     if(board == NULL){
         printf( "Blad alokacji planszy!\n" );
         return EXIT_FAILURE;
@@ -46,7 +46,11 @@ int main( int argc, char** argv ){
             insects[i].handlingDerivate = righth;
         }
     }
-    fclose(fileInit);
+    if( antAmount != i ){
+        printf( "Niepoprawna ilosc wprowadzonych danych!\n" );
+        return EXIT_FAILURE;
+    }
+    fclose( fileInit );
     antsAlgorithm( board, boardSize, insects, antAmount, milisecs );
     return EXIT_SUCCESS;
 }

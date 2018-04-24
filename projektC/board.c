@@ -17,15 +17,3 @@ int** boardGenerate(int x){
             board[i][j]=0;
     return board;
 }
-
-//board - tablica dop wyswietlenia; x - liczba kolumn i wierszy
-void boardDisplay(int** board, int x){
-    printf("\n");
-    int i,j;
-    for(i=0;i<x;i++){
-        for(j=0;j<x;j++){
-            printf("%d\t", board[i][j]);
-        }
-        printf("\n");
-    }
-}

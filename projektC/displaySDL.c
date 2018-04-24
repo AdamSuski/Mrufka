@@ -1,5 +1,5 @@
-#include "displaySDL.h"
 #include <stdio.h>
+#include "displaySDL.h"
 
 void destroymySDL(){
     SDL_DestroyRenderer(renderer);
@@ -17,7 +17,7 @@ void drawBlack( int xm, int ym ){
 
 void drawColor( int xm, int ym, int i ){
     ant.x=xm*ANTSIZE;
-        ant.y=ym*ANTSIZE;
+    ant.y=ym*ANTSIZE;
     if(i==1){
         SDL_SetRenderDrawColor( renderer, 0, 0, 255, 255 );
         SDL_RenderFillRect( renderer, &ant );
@@ -48,16 +48,12 @@ int initEverything(int sizeBoard){
 	window = SDL_CreateWindow( "Mrowka Grupa1",
                            SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                            sizeBoard*ANTSIZE, sizeBoard*ANTSIZE, 0 );
-
-	if ( window == NULL )
-	{
+	if ( window == NULL ){
 		printf( "Failed to initialize window!\n" );
 		return 0;
 	}
 	renderer = SDL_CreateRenderer( window, -1, 0 );
-
-	if ( renderer == NULL )
-	{
+	if ( renderer == NULL ){
 		printf( "Failed to initialize renderer!\n" );
 		return 0;
 	}
