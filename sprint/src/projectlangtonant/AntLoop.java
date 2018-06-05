@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 
 import java.awt.event.ActionEvent;
@@ -20,9 +21,9 @@ public class AntLoop {
     Color[] colors = {Color.WHITE, Color.LIGHTGREY, Color.LIGHTBLUE, Color.GREY, Color.ALICEBLUE, Color.BLUE, Color.BEIGE, Color.PINK,Color.GOLD,Color.GOLDENROD};
     String handling;
     GraphicsContext gc;
-    int stepCounter = 0;
+    Integer stepCounter = 0;
 
-    public void mainLoop(GraphicsContext gc, Button startButton, Button pauseButton, Button stopButton){
+    public void mainLoop(GraphicsContext gc, Button startButton, Button pauseButton, Button stopButton, Label stepsNumber){
 
         this.gc = gc;
         ants.add(new Ant(100,100,Board.Direction.West,"LR"));
@@ -34,7 +35,7 @@ public class AntLoop {
                     @Override
                     public void run() {
                         if(!pause) {
-                            stepCounter++;
+                            stepsNumber.setText((stepCounter++).toString());
                             for (Ant insect : ants) {
                                 int tmpX = insect.getAntX();
                                 int tmpY = insect.getAntY();
@@ -75,6 +76,7 @@ public class AntLoop {
     }
 
     public void clearBoard(){
+        stepCounter = 0;
         boolean tmpPause = pause; //żeby po zrobieniu wrócił do stanu sprzed
         pause = true;   // pause bo robimy dużo operacji
         gc.setFill(colors[0]);

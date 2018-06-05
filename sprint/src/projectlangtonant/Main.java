@@ -105,7 +105,7 @@ public class Main extends Application {
         VBox everything = new VBox(20);
         HBox texts = new HBox(10);
         Label stepsText = new Label("Step no:");
-        Label stepsNumber = new Label("cos");
+        Label stepsNumber = new Label("0");
         texts.getChildren().addAll(stepsText, stepsNumber);
         everything.getChildren().addAll(layout, texts);
         /////////////////
@@ -116,7 +116,7 @@ public class Main extends Application {
         /////////////////
 
         antLoop = new AntLoop();
-        antLoop.mainLoop(gc, startButton, pauseButton, stopButton);
+        antLoop.mainLoop(gc, startButton, pauseButton, stopButton, stepsNumber);
         antLoop.changeHandling(tmpHandling);
     }
 
