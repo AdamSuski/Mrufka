@@ -72,5 +72,4 @@ public class AntLoop {
     public void addAnt(int x,int y,Board.Direction direction){
         ants.add(new Ant(x,y,direction,handling));
     }
-
 }

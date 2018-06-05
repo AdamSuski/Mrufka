@@ -63,8 +63,6 @@ public class Ant {
         }
     }
 
-
-
     private void makeStep(char instruction) {
         switch (this.headingDirection) {
             case North:

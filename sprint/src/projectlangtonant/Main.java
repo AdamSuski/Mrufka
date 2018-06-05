@@ -1,6 +1,7 @@
 package projectlangtonant;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -8,18 +9,23 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Main extends Application {
 
-    int tmpDirection = 8;
+    Board.Direction tmpDirection = Board.Direction.North;
     String tmpHandling = "RL";
     Scene scene;
     AntLoop antLoop;
+
 
     @Override
     public void start(Stage window) throws Exception{
@@ -44,16 +50,16 @@ public class Main extends Application {
         gridPane.setVgap(20);
         gridPane.setHgap(20);
         Button buttonDirectionN = new Button("N");
-        buttonDirectionN.setOnAction( e -> tmpDirection = 8);
+        buttonDirectionN.setOnAction( e -> tmpDirection = Board.Direction.North);
         gridPane.setConstraints(buttonDirectionN, 1,0);
         Button buttonDirectionW = new Button("W");
-        buttonDirectionW.setOnAction( e -> tmpDirection = 4);
+        buttonDirectionW.setOnAction( e -> tmpDirection = Board.Direction.West);
         gridPane.setConstraints(buttonDirectionW, 0,1);
         Button buttonDirectionS = new Button("S");
-        buttonDirectionS.setOnAction( e -> tmpDirection = 2);
+        buttonDirectionS.setOnAction( e -> tmpDirection = Board.Direction.South);
         gridPane.setConstraints(buttonDirectionS, 1,2);
         Button buttonDirectionE = new Button("E");
-        buttonDirectionE.setOnAction( e -> tmpDirection = 6);
+        buttonDirectionE.setOnAction( e -> tmpDirection = Board.Direction.East);
         gridPane.setConstraints(buttonDirectionE, 2,1);
         gridPane.getChildren().addAll(buttonDirectionN,buttonDirectionW,buttonDirectionS,buttonDirectionE);
         Label directionText = new Label("Direction:");
@@ -77,11 +83,19 @@ public class Main extends Application {
         /////////////////
         Canvas canvas = new Canvas(600, 600);
         GraphicsContext gc = canvas.getGraphicsContext2D();
+        canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                int x = (int)event.getX()/4;
+                int y = (int)event.getY()/4;
+                antLoop.addAnt(x,y,tmpDirection);
+            }
+        });
         /////////////////
         HBox layout = new HBox(20);
         layout.getChildren().addAll(canvas,layoutOptions);
         /////////////////
-        scene = new Scene(layout, 800, 600);
+        Scene scene = new Scene(layout, 800, 600);
         window.setResizable(false);
         window.setScene(scene);
         window.show();
