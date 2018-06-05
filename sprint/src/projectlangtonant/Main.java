@@ -72,7 +72,7 @@ public class Main extends Application {
         Button pauseButton = new Button("PAUSE");
         pauseButton.setStyle("-fx-background-color: Yellow");
         pauseButton.setPrefSize(150,50);
-        Button stopButton = new Button("STOP");
+        Button stopButton = new Button("CLEAR");
         stopButton.setStyle("-fx-background-color: Red");
         stopButton.setPrefSize(150,50);
         VBox controllButtons = new VBox( 20);

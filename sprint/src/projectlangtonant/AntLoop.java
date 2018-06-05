@@ -27,8 +27,8 @@ public class AntLoop {
     public void mainLoop(GraphicsContext gc, Button startButton, Button pauseButton, Button stopButton, Label stepsNumber){
         this.stepsNumber = stepsNumber;
         this.gc = gc;
-        ants.add(new Ant(100,100,Board.Direction.West,"LR"));
-
+        ants.add(new Ant(0,0,Board.Direction.West,"LR"));
+        ants.add(new Ant(1,1,Board.Direction.West,"LR"));
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -52,15 +52,24 @@ public class AntLoop {
     }
 
     public void changeHandling (String handling) {
-        if (handling.length() < 11) {
-            this.handling = handling;
-            for (Ant ant : ants) {
-                ant.setHandling(handling);
+        if (handling.length() < 11 && handling.length() > 1) {
+            char[] chars = handling.toCharArray();
+            boolean allow = true;
+            for (char c : chars) {
+                if(c != 'R' && c !='L') {
+                    allow = false;
+                }
             }
-            board.adjustToHandling(handling.length());
-            for(int i=0; i<board.getSize(); i++){
-                for(int j=0; j<board.getSize(); j++) {
-                    drawAnt(i*4, j*4,colors[board.getPointsBoard(i,j)]);
+            if(allow) {
+                this.handling = handling;
+                for (Ant ant : ants) {
+                    ant.setHandling(handling);
+                }
+                board.adjustToHandling(handling.length());
+                for (int i = 0; i < board.getSize(); i++) {
+                    for (int j = 0; j < board.getSize(); j++) {
+                        drawAnt(i * 4, j * 4, colors[board.getPointsBoard(i, j)]);
+                    }
                 }
             }
         }
@@ -101,12 +110,16 @@ public class AntLoop {
 
     private void timerTask() {
         if(!pause) {
-            stepsNumber.setText((stepCounter++).toString());
+            if(!ants.isEmpty())stepsNumber.setText((stepCounter++).toString());
             for (Ant insect : ants) {
                 int tmpX = insect.getAntX();
                 int tmpY = insect.getAntY();
                 drawAnt(insect.getAntX()*4, insect.getAntY()*4,colors[board.getPointsBoard(tmpX,tmpY)]);
                 insect.antMovement(board.getPointsBoard(insect.getAntX(), insect.getAntY()));
+                if(insect.checkIfDead()) {
+                    ants.remove(insect);
+                    break;
+                }
                 board.setOneValuePointsBoard(tmpX,tmpY,board.getPointsBoard(tmpX,tmpY)+1);
                 drawAnt(insect.getAntX()*4, insect.getAntY()*4,Color.RED);
             }

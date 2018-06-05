@@ -9,7 +9,7 @@ public class Ant {
     private Point position;
     private Board.Direction headingDirection;
     private String handling;
-    private boolean dead = false;
+    public boolean dead = false;
 
     public Ant(int x, int y, Direction direction, String handling) {
         this.position = new Point (x,y);
@@ -50,7 +50,7 @@ public class Ant {
     }
 
     private void ifOutOfBoardChangeXY(){
-        if(getAntX()<0 || getAntX()>150 || getAntY()<0 || getAntY()>150) {
+        if(getAntX()<0 || getAntX()>149 || getAntY()<0 || getAntY()>149) {
             dead = true;
         }
     }
@@ -94,12 +94,16 @@ public class Ant {
                 }
                 break;
         }
-
+        ifOutOfBoardChangeXY();
     }
 
     public void antMovement( int value ){
         if(value>handling.length()-1)
             value=0;
-        if(!dead) makeStep(handling.charAt(value));
+        makeStep(handling.charAt(value));
+    }
+
+    public boolean checkIfDead(){
+        return dead;
     }
 }
