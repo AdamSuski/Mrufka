@@ -7,13 +7,15 @@ import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class AntLoop {
     private Timer timer;
-    public void mainLoop(GraphicsContext gc, Button startButton, Button pauseButton, Button stopButton){
-        Ant[] ants = new Ant[10];
+    public void mainLoop(GraphicsContext gc, Button startButton, Button pauseButton, Button stopButton, ){
+        List<Ant> ants = new ArrayList<>();
         Board board = new Board(150);
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
