@@ -38,6 +38,10 @@ public class Board {
         }
     }
 
+    public int getSize(){
+        return pointsBoard.length;
+    }
+
     public  enum  Direction {
         North,South,West,East;
     }
