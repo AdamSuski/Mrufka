@@ -15,16 +15,17 @@ import java.util.TimerTask;
 
 public class AntLoop {
     private Timer timer = new Timer();
-    List<Ant> ants = new ArrayList<Ant>();
-    Board board = new Board(150);
-    boolean pause = true;
-    Color[] colors = {Color.WHITE, Color.LIGHTGREY, Color.LIGHTBLUE, Color.GREY, Color.ALICEBLUE, Color.BLUE, Color.BEIGE, Color.PINK,Color.GOLD,Color.GOLDENROD};
-    String handling;
-    GraphicsContext gc;
-    Integer stepCounter = 0;
+    private List<Ant> ants = new ArrayList<Ant>();
+    private Board board = new Board(150);
+    private boolean pause = true;
+    private Color[] colors = {Color.WHITE, Color.LIGHTGREY, Color.LIGHTBLUE, Color.GREY, Color.ALICEBLUE, Color.BLUE, Color.BEIGE, Color.PINK,Color.GOLD,Color.GOLDENROD};
+    private String handling;
+    private GraphicsContext gc;
+    private Integer stepCounter = 0;
+    private Label stepsNumber;
 
     public void mainLoop(GraphicsContext gc, Button startButton, Button pauseButton, Button stopButton, Label stepsNumber){
-
+        this.stepsNumber = stepsNumber;
         this.gc = gc;
         ants.add(new Ant(100,100,Board.Direction.West,"LR"));
 
@@ -34,17 +35,7 @@ public class AntLoop {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        if(!pause) {
-                            stepsNumber.setText((stepCounter++).toString());
-                            for (Ant insect : ants) {
-                                int tmpX = insect.getAntX();
-                                int tmpY = insect.getAntY();
-                                drawAnt(insect.getAntX()*4, insect.getAntY()*4,colors[board.getPointsBoard(tmpX,tmpY)]);
-                                insect.antMovement(board.getPointsBoard(insect.getAntX(), insect.getAntY()));
-                                board.setOneValuePointsBoard(tmpX,tmpY,board.getPointsBoard(tmpX,tmpY)+1);
-                                drawAnt(insect.getAntX()*4, insect.getAntY()*4,Color.RED);
-                            }
-                        }
+                        timerTask();
                     }
                 });
             }
@@ -87,6 +78,39 @@ public class AntLoop {
         }
         board.setEachValueOnBoard(0);
         pause = tmpPause;
+    }
+
+    public void setFrequency(String frequency){
+        long period = 1000 / (long)Integer.parseInt(frequency);
+        System.out.println("" + frequency + "  " + period);
+        timer.cancel();
+        timer = new Timer();
+
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        timerTask();
+                    }
+                });
+            }
+        },0,period);
+    }
+
+    private void timerTask() {
+        if(!pause) {
+            stepsNumber.setText((stepCounter++).toString());
+            for (Ant insect : ants) {
+                int tmpX = insect.getAntX();
+                int tmpY = insect.getAntY();
+                drawAnt(insect.getAntX()*4, insect.getAntY()*4,colors[board.getPointsBoard(tmpX,tmpY)]);
+                insect.antMovement(board.getPointsBoard(insect.getAntX(), insect.getAntY()));
+                board.setOneValuePointsBoard(tmpX,tmpY,board.getPointsBoard(tmpX,tmpY)+1);
+                drawAnt(insect.getAntX()*4, insect.getAntY()*4,Color.RED);
+            }
+        }
     }
 
     public void addAnt(int x,int y,Board.Direction direction){

@@ -81,7 +81,7 @@ public class Main extends Application {
         VBox frequencyBox = new VBox(20);
         TextField inputFrequency = new TextField();
         Button buttonFrequency = new Button("Set frequency");
-        buttonFrequency.setOnAction( e -> System.out.printf(inputFrequency.getText()));
+        buttonFrequency.setOnAction( e -> antLoop.setFrequency(inputFrequency.getText()));
         Label frequencyText = new Label("Frequency:");
         frequencyBox.getChildren().addAll(frequencyText,inputFrequency,buttonFrequency);
         /////////////////
