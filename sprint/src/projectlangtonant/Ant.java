@@ -1,48 +1,41 @@
 package projectlangtonant;
 
 import java.awt.*;
+import projectlangtonant.Board.Direction;
 
 public class Ant {
-    private Point point;
-    private int direction;
+    private Point position;
+    private Board.Direction headingDirection;
     private String handling;
 
-    public Ant(int x, int y, int direction, String handling) {
-        this.point = new Point (x,y);
-        this.direction = direction;   //N 8; E 6; W 4; S 2
+    public Ant(int x, int y, Direction direction, String handling) {
+        this.position = new Point (x,y);
+        this.headingDirection = direction;
         this.handling = handling;
     }
 
     public Point getPoint() {
-        return point;
+        return position;
     }
 
     public int getAntX(){
-        return point.x;
+        return position.x;
     }
 
     public int getAntY(){
-        return point.y;
+        return position.y;
     }
 
     public void setAntX(int value){ //to tak naprawde nie jest set tylko dodawanie
-        point.x += value;
+        position.x += value;
     }
 
     public void setAntY(int value){ //to tak naprawde nie jest set tylko dodawanie
-        point.y += value;
+        position.y += value;
     }
 
     public void setPoint(Point point) {
-        this.point = point;
-    }
-
-    public int getDirection() {
-        return direction;
-    }
-
-    public void setDirection(int direction) {
-        this.direction = direction;
+        this.position = point;
     }
 
     public String getHandling() {
@@ -68,44 +61,47 @@ public class Ant {
         }
     }
 
-    private void makeStepR(){
-       if( getDirection()==8 ){
-           setAntX(1);
-           setDirection(6);
-       }
-       else if( getDirection()==6 ){
-           setAntY(1);
-           setDirection(2);
-       }
-       else if( getDirection()==2){
-           setAntX(-1);
-           setDirection(4);
-       }
-       else if( getDirection()==4 ){
-           setAntY(-1);
-           setDirection(8);
-       }
-        ifOutOfBoardChangeXY();
-    }
 
-    private void makeStepL(){
-        if( getDirection()==8 ){
-            setAntX(-1);
-            setDirection(4);
+
+    private void makeStep(char instruction) {
+        switch (this.headingDirection) {
+            case North:
+                if (instruction == 'L') {
+                    headingDirection = Direction.West;
+                    position.x -= 1;
+                } else if (instruction == 'R') {
+                    headingDirection = Direction.East;
+                    position.x += 1;
+                }
+                break;
+            case East:
+                if (instruction == 'L') {
+                    headingDirection = Direction.North;
+                    position.y += 1;
+                } else if (instruction == 'R') {
+                    headingDirection = Direction.South;
+                    position.y -= 1;
+                }
+                break;
+            case West:
+                if (instruction == 'L') {
+                    headingDirection = Direction.South;
+                    position.y -= 1;
+                } else if (instruction == 'R') {
+                    headingDirection = Direction.North;
+                    position.y += 1;
+                }
+                break;
+            case South:
+                if (instruction == 'L') {
+                    headingDirection = Direction.East;
+                    position.x += 1;
+                } else if (instruction == 'R') {
+                    headingDirection = Direction.West;
+                    position.x -= 1;
+                }
+                break;
         }
-        else if( getDirection()==6 ){
-            setAntY(-1);
-            setDirection(8);
-        }
-        else if( getDirection()==2){
-            setAntX(1);
-            setDirection(6);
-        }
-        else if( getDirection()==4 ){
-            setAntY(1);
-            setDirection(2);
-        }
-        ifOutOfBoardChangeXY();
     }
 
     public int antMovement( int value ){
@@ -113,12 +109,8 @@ public class Ant {
         value++;
         if(handlingPosition>handling.length()-1)
             handlingPosition=0;
-        if(handling.charAt(handlingPosition) == 'R'){
-            makeStepR();
-        }
-        else{
-            makeStepL();
-        }
+
+        makeStep(handling.charAt(handlingPosition));
         return value;
     }
 }

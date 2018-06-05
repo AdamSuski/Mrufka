@@ -16,7 +16,7 @@ public class AntLoop {
         Ant[] ants = new Ant[10];
         Board board = new Board(150);
         timer = new Timer();
-        /*timer.scheduleAtFixedRate(new TimerTask() {
+        timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 Platform.runLater(new Runnable() {
@@ -30,7 +30,7 @@ public class AntLoop {
                 });
 
             }
-        },0,60);*/
+        },0,60);
 /*
         startButton.setOnAction( e-> timer.start());
         pauseButton.setOnAction();

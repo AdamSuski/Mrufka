@@ -23,4 +23,7 @@ public class Board {
                 pointsBoard[i][j]=value;
         }
     }
+    public  enum  Direction {
+        North,South,West,East;
+    }
 }
