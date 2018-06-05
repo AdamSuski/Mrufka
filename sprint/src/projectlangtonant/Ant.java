@@ -1,6 +1,8 @@
 package projectlangtonant;
 
 import java.awt.*;
+import java.io.Console;
+
 import projectlangtonant.Board.Direction;
 
 public class Ant {
@@ -14,7 +16,7 @@ public class Ant {
         this.handling = handling;
     }
 
-    public Point getPoint() {
+    public Point getPosition() {
         return position;
     }
 
@@ -102,6 +104,7 @@ public class Ant {
                 }
                 break;
         }
+
     }
 
     public int antMovement( int value ){

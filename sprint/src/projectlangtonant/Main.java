@@ -11,16 +11,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import java.util.Timer;
-import java.util.TimerTask;
+
 
 public class Main extends Application {
 
     int tmpDirection = 8;
     String tmpHandling = "RL";
     Scene scene;
+    AntLoop antLoop;
 
     @Override
     public void start(Stage window) throws Exception{
@@ -31,7 +30,7 @@ public class Main extends Application {
          */
         TextField inputHandling = new TextField();
         Button buttonHandling = new Button("Set handling");
-        buttonHandling.setOnAction( e -> tmpHandling=inputHandling.getText());
+        buttonHandling.setOnAction( e -> antLoop.changeHandling(inputHandling.getText()));
         Label handlingText = new Label("Handling:");
         VBox handlingBox = new VBox(10);
         handlingBox.setPadding(new Insets(20,20,20,10));
@@ -88,8 +87,9 @@ public class Main extends Application {
         window.show();
         /////////////////
 
-        AntLoop antLoop = new AntLoop();
+        antLoop = new AntLoop();
         antLoop.mainLoop(gc, startButton, pauseButton, stopButton);
+        antLoop.changeHandling(tmpHandling);
     }
 
       public static void main(String[] args) {
