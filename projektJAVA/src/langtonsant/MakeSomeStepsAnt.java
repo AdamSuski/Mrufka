@@ -23,7 +23,7 @@ public class MakeSomeStepsAnt {
                     @Override
                     public void run() {
                         for(Ant ant:ants) {
-                            ant.makeStep();
+                            ant.makeStep('A');
                         }
                     }
                 });
