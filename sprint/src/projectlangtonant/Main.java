@@ -78,8 +78,15 @@ public class Main extends Application {
         VBox controllButtons = new VBox( 20);
         controllButtons.getChildren().addAll(startButton, pauseButton, stopButton);
         /////////////////
+        VBox frequencyBox = new VBox(20);
+        TextField inputFrequency = new TextField();
+        Button buttonFrequency = new Button("Set frequency");
+        buttonFrequency.setOnAction( e -> System.out.printf(inputFrequency.getText()));
+        Label frequencyText = new Label("Frequency:");
+        frequencyBox.getChildren().addAll(frequencyText,inputFrequency,buttonFrequency);
+        /////////////////
         VBox layoutOptions = new VBox(20);
-        layoutOptions.getChildren().addAll(handlingBox, directionOptions, controllButtons);
+        layoutOptions.getChildren().addAll(handlingBox, directionOptions, controllButtons,frequencyBox);
         /////////////////
         Canvas canvas = new Canvas(600, 600);
         GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -95,7 +102,14 @@ public class Main extends Application {
         HBox layout = new HBox(20);
         layout.getChildren().addAll(canvas,layoutOptions);
         /////////////////
-        Scene scene = new Scene(layout, 800, 600);
+        VBox everything = new VBox(20);
+        HBox texts = new HBox(10);
+        Label stepsText = new Label("Step no:");
+        Label stepsNumber = new Label("cos");
+        texts.getChildren().addAll(stepsText, stepsNumber);
+        everything.getChildren().addAll(layout, texts);
+        /////////////////
+        Scene scene = new Scene(everything, 800, 700);
         window.setResizable(false);
         window.setScene(scene);
         window.show();
