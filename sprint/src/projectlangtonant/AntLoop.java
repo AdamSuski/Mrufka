@@ -23,12 +23,12 @@ public class AntLoop {
     private GraphicsContext gc;
     private Integer stepCounter = 0;
     private Label stepsNumber;
+    private Label antNo;
 
-    public void mainLoop(GraphicsContext gc, Button startButton, Button pauseButton, Button stopButton, Label stepsNumber){
+    public void mainLoop(GraphicsContext gc, Button startButton, Button pauseButton, Button stopButton, Label stepsNumber, Label antNo){
         this.stepsNumber = stepsNumber;
         this.gc = gc;
-        ants.add(new Ant(0,0,Board.Direction.West,"LR"));
-        ants.add(new Ant(1,1,Board.Direction.West,"LR"));
+        this.antNo = antNo;
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -90,22 +90,25 @@ public class AntLoop {
     }
 
     public void setFrequency(String frequency){
-        long period = 1000 / (long)Integer.parseInt(frequency);
-        System.out.println("" + frequency + "  " + period);
-        timer.cancel();
-        timer = new Timer();
+        if(Integer.parseInt(frequency) < 1001 &&  Integer.parseInt(frequency) > 0) {
+            long period = 1000 / (long) Integer.parseInt(frequency);
+            System.out.println("" + frequency + "  " + period);
+            timer.cancel();
+            timer = new Timer();
 
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        timerTask();
-                    }
-                });
-            }
-        },0,period);
+
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            timerTask();
+                        }
+                    });
+                }
+            }, 0, period);
+        }
     }
 
     private void timerTask() {
@@ -118,6 +121,7 @@ public class AntLoop {
                 insect.antMovement(board.getPointsBoard(insect.getAntX(), insect.getAntY()));
                 if(insect.checkIfDead()) {
                     ants.remove(insect);
+                    antNo.setText("Ants: "+((Integer)ants.size()).toString());
                     break;
                 }
                 board.setOneValuePointsBoard(tmpX,tmpY,board.getPointsBoard(tmpX,tmpY)+1);
@@ -128,5 +132,7 @@ public class AntLoop {
 
     public void addAnt(int x,int y,Board.Direction direction){
         ants.add(new Ant(x,y,direction,handling));
+        antNo.setText("Ants: "+((Integer)ants.size()).toString());
+        drawAnt(x*4,y*4,Color.RED);
     }
 }

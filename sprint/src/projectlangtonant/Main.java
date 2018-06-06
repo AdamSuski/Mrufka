@@ -84,9 +84,11 @@ public class Main extends Application {
         buttonFrequency.setOnAction( e -> antLoop.setFrequency(inputFrequency.getText()));
         Label frequencyText = new Label("Frequency:");
         frequencyBox.getChildren().addAll(frequencyText,inputFrequency,buttonFrequency);
+
+        Label antNumber = new Label("Ants: 0");
         /////////////////
         VBox layoutOptions = new VBox(20);
-        layoutOptions.getChildren().addAll(handlingBox, directionOptions, controllButtons,frequencyBox);
+        layoutOptions.getChildren().addAll(handlingBox, directionOptions, controllButtons,frequencyBox,antNumber);
         /////////////////
         Canvas canvas = new Canvas(600, 600);
         GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -116,7 +118,7 @@ public class Main extends Application {
         /////////////////
 
         antLoop = new AntLoop();
-        antLoop.mainLoop(gc, startButton, pauseButton, stopButton, stepsNumber);
+        antLoop.mainLoop(gc, startButton, pauseButton, stopButton, stepsNumber, antNumber);
         antLoop.changeHandling(tmpHandling);
     }
 
