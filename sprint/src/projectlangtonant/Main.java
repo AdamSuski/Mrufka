@@ -18,22 +18,34 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Glowna klasa programu
+ *
+ * W niej tworzony jest wyglad aplikacji i wywolywana jest cala akcja automatu komorkowego.
+ */
 
 public class Main extends Application {
-
+    /**
+     * Domyslna wartosc kierunku mrowki to polnoc
+     */
     Board.Direction tmpDirection = Board.Direction.North;
+    /**
+     * Domyslne sterowanie to RL
+     */
     String tmpHandling = "RL";
-    Scene scene;
     AntLoop antLoop;
 
-
+    /**
+     * Metoda odpowiada za utworzenie wygladu aplikacji i uruchomienie metod potrzebnych do dzialania automatu.
+     *
+     * Po kolei tworzone sa przyciski, teksty itp.
+     * Laczone one sa w odpowiednie segmenty i na koncu dodane do okna programu.
+     * Nastepnie odpalana jest glowna petla programu {@link AntLoop}
+     */
     @Override
     public void start(Stage window) throws Exception{
         window.setTitle("Langton Ant");
 
-        /**
-         * Creating box containing handling stuff
-         */
         TextField inputHandling = new TextField();
         Button buttonHandling = new Button("Set handling");
         buttonHandling.setOnAction( e -> antLoop.changeHandling(inputHandling.getText()));
@@ -42,9 +54,6 @@ public class Main extends Application {
         handlingBox.setPadding(new Insets(20,20,20,10));
         handlingBox.getChildren().addAll(handlingText,inputHandling, buttonHandling);
 
-        /**
-         * Creating box containing direction stuff
-         */
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(20,20,20,20));
         gridPane.setVgap(20);
@@ -122,6 +131,10 @@ public class Main extends Application {
         antLoop.changeHandling(tmpHandling);
     }
 
+    /**
+     * Typowy main do odpalenia dzialania programu
+     *
+     */
       public static void main(String[] args) {
         launch(args);
     }
