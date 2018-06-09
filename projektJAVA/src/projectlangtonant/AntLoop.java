@@ -14,7 +14,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Klasa zawierajaca glowna petle 
+ * Klasa zawierajaca glowna petle
  */
 public class AntLoop {
     /**
